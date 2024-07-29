@@ -17,16 +17,7 @@ class InvoiceController extends Controller
 
     public function index(Request $request)
     {
-        $user = User::find(1); // or User::find($userId);
-        if ($user) {
-          
-                $user->assignRole('owner');
-                // Verify if the role is assigned
-                dd($user->roles);
-            
-        } else {
-            dd('User is null');
-        }
+       
         if ($request->status == 'paid') {
             $invoices = Invoice::Where('Value_Status', 1)->get();
             $title = 'الفواتير المدفوعة';

@@ -48,21 +48,32 @@ class ReportController extends Controller
 
     public function searchCustomer(Request $request)
     {
-       // return $request;
+        $request->validate([
+            'section_id' => 'required', 
+            'product' => 'required', 
+        ],[
+            'section_id.required'=>'القسم مطلوب',
+            'product.required' => 'المنتج مطلوب'
+        ]);
 
         $start_at = date($request->start_at);
         $end_at = date($request->end_at);      
 
             $details = $request->start_at && $request->end_at ?
-                Invoice::whereBetween('invoice_Date', [$start_at, $end_at])->where('section_id', $request->Section)->get()
+                Invoice::whereBetween('invoice_Date', [$start_at, $end_at])->where('section_id', $request->section_id)->get()
                 :
-                Invoice::where('section_id', $request->Section)->get();
+                Invoice::where([
+                    ['section_id', $request->section_id],
+                    ['product',$request->product],
+                    ])->get();
         $sections = Section::all();
             return view('reports.customers', [
                 'details' => $details,
-            'sections' => $sections,
+                'sections' => $sections,
               
             ]);
+
+           
         
     }
 }

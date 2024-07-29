@@ -34,6 +34,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+     
         $request->validate( [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -42,7 +43,11 @@ class UserController extends Controller
             'roles_name' => 'required',
         ]);
         $request['password']= Hash::make($request['password']);
-        User::create($request->all());
+      
+      $user=  User::create($request->all());
+        $role = Role::where('name', $request->roles_name)->first();
+        $user->roles()->attach($role);
+
         session()->flash('Add', 'تمت الاضافة بنجاح');
         return back();
     }
@@ -81,9 +86,13 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->status = $request->input('status');
-        $user->roles_name = $request->input('roles_name');       
+        $user->roles = $request->input('roles_name');       
         $user->password = $request->input('password');      
         $user->save();
+
+        $user->roles()->detach();
+        $role = Role::where('name', $request->roles)->first();
+        $user->roles()->attach($role);
 
         session()->flash('edit', 'تم التعديل بنجاح');
         return back();

@@ -59,7 +59,6 @@
                                     <th class="border-bottom-0">تاريخ الاستحقاق</th>
                                     <th class="border-bottom-0">المنتج</th>
                                     <th class="border-bottom-0">القسم</th>
-                                    <th class="border-bottom-0">الخصم</th>
                                     <th class="border-bottom-0">نسبة الضريبة</th>
                                     <th class="border-bottom-0">قيمة الضريبة</th>
                                     <th class="border-bottom-0">الاجمالي</th>
@@ -77,10 +76,9 @@
 <td>{{$invoice->Due_date}}</td>
 <td>{{$invoice->product}}</td>
 <td>{{$invoice->section->name}}</td>
-<td>{{$invoice->Discount}}</td>
 <td>{{$invoice->Rate_VAT}}</td>
 <td>{{$invoice->Amount_collection}}</td>
-<td>{{$invoice->Amount_Commission}}</td>
+<td>{{$invoice->Total}}</td>
 <td>
 	@if ($invoice->Value_Status==1)
 		<span class="text-success">{{$invoice->Status}}</span>

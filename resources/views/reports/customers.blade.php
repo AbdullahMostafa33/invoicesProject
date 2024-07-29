@@ -55,16 +55,16 @@
 
             <div class="card-header pb-0">
 
-                <form action="/Search_customers" method="POST" role="search" autocomplete="off">
-                    {{ csrf_field() }}
+                <form action="/Search_customers"  role="search" autocomplete="off">
+                
 
 
                     <div class="row">
 
                         <div class="col">
                             <label for="inputName" class="control-label">القسم</label>
-                            <select name="Section" class="form-control select2" onclick="console.log($(this).val())"
-                                onchange="console.log('change is firing')">
+                            <select name="section_id" class="form-control select2" onclick="console.log($(this).val())"
+                                onchange="console.log('change is firing')" required>
                                 <!--placeholder-->
                                 <option value="" selected disabled>حدد القسم</option>
                                 @foreach ($sections as $section)
@@ -137,9 +137,9 @@
                             <tbody>
                                 <?php $i = 0; ?>
                                 @foreach ($details as $invoice)
-                                    <?php $i++; ?>
+                                   
                                     <tr>
-                                        <td>{{ $i }}</td>
+                                        <td>{{ ++$i }}</td>
                                         <td>{{ $invoice->invoice_number }} </td>
                                         <td>{{ $invoice->invoice_Date }}</td>
                                         <td>{{ $invoice->Due_date }}</td>

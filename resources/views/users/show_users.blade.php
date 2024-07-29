@@ -93,7 +93,7 @@
                                     <td>
                                         
                                            
-                                                <label class="badge badge-success">{{ $user->roles_name }}</label>
+                                                <label class="badge badge-success">{{ $user->roles_name}}</label>
                                         
                                     </td>
 
